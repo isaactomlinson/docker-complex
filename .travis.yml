@@ -3,7 +3,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t isaactomlinson/docker-complex -f ./client/Dockerfile.dev ./client/Dockerfile.dev
+  - docker build -t isaactomlinson/docker-complex -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run -e CI=true isaactomlinson/docker-complex npm test -- --coverage
