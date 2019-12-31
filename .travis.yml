@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t isaactomlinson/docker-complex -f ./client/Dockerfile.dev ./client/Dockerfile.dev
+
+script:
+  - docker run -e CI=true isaactomlinson/docker-complex npm test -- --coverage
+
+after_success:
+  - docker build -t isaactomlinson/multi-client ./client
+  - docker build -t isaactomlinson/multi-nginx ./nginx
+  - docker build -t isaactomlinson/multi-server ./server
+  - docker build -t isaactomlinson/multi-worker ./worker
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push isaactomlinson/multi-client
+  - docker push isaactomlinson/multi-nginx
+  - docker push isaactomlinson/multi-server
+  - docker push isaactomlinson/multi-worker
