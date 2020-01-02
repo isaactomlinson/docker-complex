@@ -20,3 +20,15 @@ after_success:
   - docker push isaactomlinson/multi-nginx
   - docker push isaactomlinson/multi-server
   - docker push isaactomlinson/multi-worker
+
+deploy:
+    provider: elasticbeanstalk
+    region: us-east-2
+    app: docker-complex
+    env: DockerComplex-env
+    bucket_name: elasticbeanstalk-us-east-2-605275957766
+    bucket_path: docker-complex
+    on:
+      branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
