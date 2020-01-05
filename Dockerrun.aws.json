@@ -11,7 +11,7 @@
           
         {
             "name": "server",
-            "image": "isactomlinson/multi-server",
+            "image": "isaactomlinson/multi-server",
             "hostname": "api",
             "essential": false,
             "memory": 128
